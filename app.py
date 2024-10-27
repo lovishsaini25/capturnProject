@@ -3,7 +3,7 @@ import yfinance as yf
 from datetime import datetime, timedelta
 
 def calculate_ud_ratio(data):
-    data['Change'] = data['Close'].diff()
+    data['Change'] = data['Close']-data['Open']
     up_days = (data['Change'] > 0).sum()
     down_days = (data['Change'] < 0).sum()
     ud_ratio = up_days / down_days if down_days != 0 else None
