@@ -6,8 +6,11 @@ def calculate_ud_ratio(data):
     data['Change'] = data['Close']-data['Open']
     up_days = (data['Change'] > 0).sum()
     down_days = (data['Change'] < 0).sum()
+    up_volumes = data['Volume'][data['Change'] > 0]
+    down_volumes = data['Volume'][data['Change'] > 0]
     ud_ratio = up_days / down_days if down_days != 0 else None
-    return ud_ratio
+    ud_volume_ratio = up_volumes / down_volumes if down_volumes != 0 else None
+    return ud_ratio, ud_volume_ratio
 
 st.title("Stock UD Ratio Calculator")
 
@@ -36,8 +39,9 @@ if st.button("Search"):
             stock_data = yf.download(f'{ticker}.NS', start=start_date, end=end_date)
             
             if not stock_data.empty:
-                ud_ratio = calculate_ud_ratio(stock_data)
-                st.write(f"UD Ratio for {ticker} over {timeframe}: {ud_ratio:.2f}" if ud_ratio else "Insufficient data to calculate UD Ratio.")
+                ud_ratio, up_volume_ratio = calculate_ud_ratio(stock_data)
+                st.write(f"UD Ratio for {ticker} over {timeframe}: {ud_ratio:.2f} and UD Volume ratio is {up_volume_ratio:.2f}"
+                         if ud_ratio else "Insufficient data to calculate UD Ratio.")
             else:
                 st.write("No data available for the selected ticker and timeframe.")
                 
