@@ -1,5 +1,6 @@
 import streamlit as st
 import yfinance as yf
+import numpy as np
 from datetime import datetime, timedelta
 
 def calculate_ud_ratio(data):
@@ -10,7 +11,7 @@ def calculate_ud_ratio(data):
     down_volumes = data[data['Change'] < 0]['Volume'].sum()
     ud_ratio = up_days / down_days if down_days != 0 else None
     ud_volume_ratio = up_volumes / down_volumes
-    return ud_ratio, ud_volume_ratio
+    return ud_ratio, np.float64(ud_volume_ratio)
 
 st.title("Stock UD Ratio Calculator")
 
