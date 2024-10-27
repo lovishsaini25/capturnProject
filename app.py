@@ -9,7 +9,7 @@ def calculate_ud_ratio(data):
     up_volumes = data[data['Change'] > 0]['Volume'].sum()
     down_volumes = data[data['Change'] < 0]['Volume'].sum()
     ud_ratio = up_days / down_days if down_days != 0 else None
-    ud_volume_ratio = up_volumes / down_volumes if down_volumes != 0 else None
+    ud_volume_ratio = up_volumes / down_volumes
     return ud_ratio, ud_volume_ratio
 
 st.title("Stock UD Ratio Calculator")
