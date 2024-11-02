@@ -4,7 +4,7 @@ import numpy as np
 from datetime import datetime, timedelta
 
 def calculate_ud_ratio(data):
-    data['Change'] = data['Close']-data['Open']
+    data['Change'] = data['Close'] - data['Open']
     up_days = (data['Change'] > 0).sum()
     down_days = (data['Change'] < 0).sum()
     up_volumes = data[data['Change'] > 0]['Volume'].sum()
@@ -13,7 +13,7 @@ def calculate_ud_ratio(data):
     ud_volume_ratio = up_volumes / down_volumes
     return ud_ratio, np.float64(ud_volume_ratio)
 
-st.title("Stock UD Ratio Calculator")
+st.title("Capturn Stock Tool")
 
 ticker = st.text_input("Enter stock ticker symbol:", value="RELIANCE")
 
